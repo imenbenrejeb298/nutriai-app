@@ -1,1 +1,29 @@
-import { API_BASE_URL } from \'./config\';\n\n/**\n * API client for generating meal plans.\n * It calls the backend endpoint `/api/generate-meal-plan`.\n */\n\nexport async function generateMealPlan(profile) {\n  const token = localStorage.getItem(\'nutriai.token\');\n  const headers = { \'Content-Type\': \'application/json\' };\n  if (token) {\n    headers[\'Authorization\'] = `Bearer ${token}`;\n  }\n\n  const res = await fetch(`${API_BASE_URL}/api/generate-meal-plan\`, {\n    method: \'POST\',\n    headers,\n    body: JSON.stringify(profile),\n  });\n\n  if (!res.ok) {\n    const errorPayload = await res.text();\n    console.error(\'Backend returned an error:\', errorPayload);\n    throw new Error(\'Failed to generate meal plan from backend.\');\n  }\n\n  const data = await res.json();\n  return data;\n}\n
+import { API_BASE_URL } from './config';
+
+/**
+ * API client for generating meal plans.
+ * It calls the backend endpoint `/api/generate-meal-plan`.
+ */
+
+export async function generateMealPlan(profile) {
+  const token = localStorage.getItem('nutriai.token');
+  const headers = { 'Content-Type': 'application/json' };
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+
+  const res = await fetch(`${API_BASE_URL}/api/generate-meal-plan`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(profile),
+  });
+
+  if (!res.ok) {
+    const errorPayload = await res.text();
+    console.error('Backend returned an error:', errorPayload);
+    throw new Error('Failed to generate meal plan from backend.');
+  }
+
+  const data = await res.json();
+  return data;
+}
