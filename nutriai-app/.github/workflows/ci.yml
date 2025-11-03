@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install frontend deps
+        run: |
+          cd ./
+          npm install
+
+      - name: Build frontend
+        run: |
+          npm run build
+
+      - name: Install server deps
+        run: |
+          cd server
+          npm install
+
+      - name: Lint (quick)
+        run: |
+          echo "No linter configured; consider adding ESLint/Tailwind lint steps"

@@ -1,0 +1,6 @@
+{
+  "appId": "com.nutriai.app",
+  "appName": "NutriAI",
+  "webDir": "build",
+  "bundledWebRuntime": false
+}

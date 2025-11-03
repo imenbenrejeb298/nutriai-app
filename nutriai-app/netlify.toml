@@ -1,0 +1,17 @@
+# Configuration file for Netlify
+
+[build]
+  # This is the command to build your site
+  command = "npm run build"
+  
+  # This is the directory that contains the built site
+  publish = "build"
+  
+  # The base directory of your frontend application
+  base = "nutriai-app"
+
+[dev]
+  # This is for local development, not directly used by Netlify build
+  command = "npm start"
+  port = 3000
+  publish = "public"
