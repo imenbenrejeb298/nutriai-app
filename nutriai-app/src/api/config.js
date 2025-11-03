@@ -1,8 +1,9 @@
 /**
- * API Configuration
- * Change the API_BASE_URL to your deployed backend server URL.
+ * API Configuration for Netlify deployment.
+ * The API is now served from the same domain as the frontend,
+ * under the `/.netlify/functions/api` path, which is rewritten from `/api`.
  */
 
-// For local development, the proxy in package.json handles requests to the backend.
-// For production builds (web, Android, iOS), we need the full public URL of the server.
-export const API_BASE_URL = 'http://localhost:5000'; // <-- CHANGE THIS WHEN YOU DEPLOY YOUR BACKEND
+// When deployed on Netlify, all calls to /api/* will be redirected to our function.
+// In local development, we will use the Netlify Dev server which simulates this.
+export const API_BASE_URL = ''; // No base URL needed, requests are relative to the site itself

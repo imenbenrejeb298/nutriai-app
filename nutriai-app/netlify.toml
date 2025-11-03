@@ -1,17 +1,17 @@
-# Configuration file for Netlify
+# Netlify configuration for a unified React app with serverless functions
 
 [build]
-  # This is the command to build your site
+  # Build command for the React frontend
   command = "npm run build"
   
-  # This is the directory that contains the built site
+  # The directory containing the built frontend
   publish = "build"
   
-  # The base directory of your frontend application
-  base = "nutriai-app"
+  # The directory where serverless functions are located
+  functions = "netlify/functions"
 
-[dev]
-  # This is for local development, not directly used by Netlify build
-  command = "npm start"
-  port = 3000
-  publish = "public"
+# Redirect all API calls to our serverless function
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
