@@ -1,16 +1,11 @@
-# Netlify configuration for a unified React app with serverless functions
+# Netlify configuration for Production
 
 [build]
-  # Build command for the React frontend
   command = "npm run build"
-  
-  # The directory containing the built frontend
   publish = "build"
-  
-  # The directory where serverless functions are located
   functions = "netlify/functions"
 
-# Redirect all API calls to our serverless function
+# Redirect rule for the API
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"

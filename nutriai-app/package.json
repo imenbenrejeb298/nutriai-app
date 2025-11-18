@@ -2,28 +2,42 @@
   "name": "nutriai-app-unified",
   "version": "1.0.0",
   "private": true,
+  "description": "An intelligent nutrition assistant powered by a local AI model.",
+  "author": "imenbenrejeb298",
+  "main": "public/electron.js",
+  "homepage": "./",
   "dependencies": {
+    "@paypal/react-paypal-js": "^7.8.1",
     "@testing-library/react": "^16.3.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "i18next": "^23.7.7",
+    "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.552.0",
+    "node-fetch": "^3.3.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-scripts": "5.0.1",
-    "recharts": "^3.3.0",
-    "i18next": "^23.7.7",
     "react-i18next": "^13.0.0",
-    "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
-    "express": "^4.19.2",
-    "jsonwebtoken": "^9.0.2",
-    "sqlite3": "^5.1.7",
+    "react-router-dom": "^6.25.1",
+    "react-scripts": "5.0.1",
+    "recharts": "^3.4.1",
     "serverless-http": "^3.2.0",
+    "sqlite3": "^5.1.7",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start:api": "node server/index.js",
+    "dev": "concurrently \"npm:start:api\" \"npm:start\"",
+    "electron:serve": "npm run build && electron .",
+    "electron:build": "electron-builder",
+    "deploy": "node scripts/deploy.js",
+    "test:deploy": "node scripts/test-deploy.js"
   },
   "eslintConfig": {
     "extends": [
@@ -45,6 +59,46 @@
   },
   "devDependencies": {
     "concurrently": "^8.2.0",
-    "netlify-cli": "^17.30.0"
+    "electron": "^25.0.0",
+    "electron-builder": "^24.5.0",
+    "netlify-cli": "^17.30.0",
+    "wait-on": "^7.0.1"
+  },
+  "electronWebpack": {
+    "whiteListedModules": [
+      "sqlite3"
+    ]
+  },
+  "build": {
+    "appId": "com.nutriai.app",
+    "productName": "NutriAI",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*",
+      "electron-main.js",
+      "server/**/*"
+    ],
+    "directories": {
+      "buildResources": "public"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "public/logo512.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "extraResources": [
+      {
+        "from": "server/",
+        "to": "server/"
+      }
+    ],
+    "npmRebuild": false,
+    "buildDependenciesFromSource": false
   }
 }

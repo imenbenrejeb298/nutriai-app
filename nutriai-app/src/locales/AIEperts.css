@@ -1,0 +1,160 @@
+.ai-experts-container {
+  padding: 2rem 1.5rem 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: #f9fafb;
+}
+
+.ai-experts-container h1 {
+  text-align: center;
+  font-size: 2.1rem;
+  margin-bottom: 0.25rem;
+  font-weight: 700;
+}
+
+.experts-subtitle {
+  text-align: center;
+  font-size: 0.95rem;
+  color: #9ca3af;
+  margin-bottom: 2.5rem;
+}
+
+.experts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.75rem;
+}
+
+.expert-card {
+  background: radial-gradient(circle at top left, rgba(16, 185, 129, 0.15), transparent 55%),
+    #111827;
+  border-radius: 18px;
+  border: 1px solid #1f2937;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.expert-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 55px rgba(0, 0, 0, 0.55);
+  border-color: #10b981;
+}
+
+.expert-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.expert-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 999px;
+  object-fit: cover;
+  margin-right: 1rem;
+  border: 3px solid rgba(16, 185, 129, 0.8);
+  box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.9);
+}
+
+.expert-info h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.expert-info p {
+  margin: 0.15rem 0 0;
+  color: #a7f3d0;
+  font-size: 0.85rem;
+}
+
+.expert-body {
+  flex-grow: 1;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #e5e7eb;
+}
+
+.expert-chat {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.expert-chat input {
+  flex-grow: 1;
+  padding: 0.7rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid #374151;
+  background-color: #020617;
+  color: #f9fafb;
+  font-size: 0.85rem;
+}
+
+.expert-chat input::placeholder {
+  color: #6b7280;
+}
+
+.expert-chat button {
+  padding: 0.7rem 1.1rem;
+  border: none;
+  background: linear-gradient(135deg, #10b981, #22c55e);
+  color: white;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 12px 25px rgba(16, 185, 129, 0.35);
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.expert-chat button:hover {
+  background: linear-gradient(135deg, #059669, #16a34a);
+  transform: translateY(-1px);
+  box-shadow: 0 16px 35px rgba(16, 185, 129, 0.45);
+}
+
+/* Styles pour les conversations */
+.expert-conversation {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #374151;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.message {
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+.message.user {
+  background-color: #059669;
+  text-align: right;
+}
+
+.message.expert {
+  background-color: #1e293b;
+  text-align: left;
+}
+
+.message p {
+  margin: 0;
+  word-wrap: break-word;
+}
+
+@media (max-width: 640px) {
+  .ai-experts-container {
+    padding: 1.5rem 1rem 2.5rem;
+  }
+
+  .ai-experts-container h1 {
+    font-size: 1.8rem;
+  }
+}

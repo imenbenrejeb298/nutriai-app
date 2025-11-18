@@ -1,32 +1,28 @@
-import React, { createContext, useContext, useState } from 'react';
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+
+// Import translation files
 import en from './locales/en.json';
 import fr from './locales/fr.json';
 import es from './locales/es.json';
 import ar from './locales/ar.json';
 
-const resources = { en, fr, es, ar };
+const resources = {
+  en: { translation: en },
+  fr: { translation: fr },
+  es: { translation: es },
+  ar: { translation: ar },
+};
 
-const I18nContext = createContext();
+i18n
+  .use(initReactI18next) // passes i18n down to react-i18next
+  .init({
+    resources,
+    lng: 'fr', // default language
+    fallbackLng: 'en',
+    interpolation: {
+      escapeValue: false, // react already safes from xss
+    },
+  });
 
-export function I18nProvider({ children }) {
-  const [lang, setLang] = useState('fr');
-
-  const t = (key) => {
-    const entry = resources[lang] && resources[lang][key];
-    if (entry) return entry;
-    // fallback to English
-    return resources.en[key] || key;
-  };
-
-  return (
-    <I18nContext.Provider value={{ t, lang, setLang }}>
-      {children}
-    </I18nContext.Provider>
-  );
-}
-
-export function useI18n() {
-  return useContext(I18nContext);
-}
-
-export default I18nContext;
+export default i18n;

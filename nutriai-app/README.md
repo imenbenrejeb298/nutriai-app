@@ -1,70 +1,140 @@
-# Getting Started with Create React App
+# NutriAI - Assistant Nutritionnel Intelligent
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+NutriAI est un assistant nutritionnel alimenté par l'intelligence artificielle qui vous aide à atteindre vos objectifs de santé et de bien-être. L'application fournit des plans de repas personnalisés, un suivi de la progression et des conseils d'experts basés sur vos données personnelles et vos conditions de santé.
 
-## Available Scripts
+## Fonctionnalités
 
-In the project directory, you can run:
+- 🍽️ **Plans de repas personnalisés** basés sur vos objectifs et conditions de santé
+- 📊 **Suivi de la progression** avec des graphiques et des analyses détaillées
+- 👨‍⚕️ **Conseils d'experts IA** dans les domaines de la nutrition, du fitness et de la cuisine
+- 🌍 **Support multilingue** (Français, Anglais, Espagnol, Arabe)
+- 💳 **Modèle freemium** avec options premium abordables
+- 📱 **Applications mobiles** pour iOS et Android
+- ☁️ **Déploiement cloud** gratuit avec Netlify
 
-### `npm start`
+## Technologies
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Frontend** : React 18, Tailwind CSS, i18next
+- **Backend** : Node.js, Express
+- **Mobile** : Capacitor pour iOS et Android
+- **IA** : Modèles de nutrition personnalisés
+- **Hébergement** : Netlify (gratuit)
+- **Paiements** : PayPal
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Installation
 
-### `npm test`
+1. **Cloner le repository** :
+   ```bash
+   git clone https://github.com/votre-username/nutriai-app.git
+   cd nutriai-app
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. **Installer les dépendances** :
+   ```bash
+   npm install
+   ```
 
-### `npm run build`
+3. **Démarrer le serveur de développement** :
+   ```bash
+   npm start
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. **Construire pour la production** :
+   ```bash
+   npm run build
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Déploiement
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Déploiement gratuit sur Netlify
 
-### `npm run eject`
+1. **Créer un compte Netlify** (https://netlify.com)
+2. **Installer Netlify CLI** :
+   ```bash
+   npm install -g netlify-cli
+   ```
+3. **Se connecter à Netlify** :
+   ```bash
+   npx netlify login
+   ```
+4. **Déployer** :
+   ```bash
+   npx netlify deploy --prod
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Configuration des paiements PayPal
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. **Créer un compte PayPal Business**
+2. **Obtenir le Client ID** dans le tableau de bord PayPal
+3. **Ajouter la variable d'environnement** `REACT_APP_PAYPAL_CLIENT_ID` dans Netlify
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Déploiement mobile
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+#### Android
+```bash
+npm install @capacitor/core @capacitor/cli
+npx cap init
+npx cap add android
+npm run build
+npx cap copy
+npx cap open android
+```
 
-## Learn More
+#### iOS (nécessite un Mac)
+```bash
+npx cap add ios
+npm run build
+npx cap copy
+npx cap open ios
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Structure du projet
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+nutriai-app/
+├── src/                 # Code source frontend
+│   ├── components/      # Composants React
+│   ├── locales/         # Fichiers de traduction
+│   ├── api/             # Clients API
+│   └── assets/          # Images et ressources
+├── server/              # Backend Node.js
+├── netlify/             # Fonctions Netlify
+├── android/             # Configuration Android
+├── ios/                 # Configuration iOS
+├── public/              # Fichiers statiques
+└── build/               # Build de production
+```
 
-### Code Splitting
+## Développement
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Scripts disponibles
 
-### Analyzing the Bundle Size
+- `npm start` - Démarre le serveur de développement
+- `npm run build` - Construit l'application pour la production
+- `npm test` - Exécute les tests
+- `npm run dev` - Démarre le frontend et le backend simultanément
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Internationalisation
 
-### Making a Progressive Web App
+L'application supporte 4 langues :
+- Français (fr)
+- Anglais (en)
+- Espagnol (es)
+- Arabe (ar)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Les fichiers de traduction se trouvent dans `src/locales/`.
 
-### Advanced Configuration
+## Contribution
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Les contributions sont les bienvenues ! Veuillez lire le fichier CONTRIBUTING.md pour plus de détails.
 
-### Deployment
+## Licence
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Ce projet est sous licence MIT - voir le fichier LICENSE.md pour plus de détails.
 
-### `npm run build` fails to minify
+## Support
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Pour obtenir de l'aide, veuillez :
+1. Consulter la documentation
+2. Ouvrir une issue sur GitHub
+3. Contacter l'équipe de support NutriAI

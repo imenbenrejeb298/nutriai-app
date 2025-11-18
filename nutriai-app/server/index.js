@@ -4,7 +4,7 @@ const cors = require('cors');
 
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { db, addEntry, listEntries, createUser, findUserByEmail, getUserById } = require('./db');
+const { addEntry, listEntries, createUser, findUserByEmail, getUserById } = require('./db');
 const { generateMockPlan } = require('./mock-ai');
 
 const app = express();
@@ -13,18 +13,22 @@ app.use(bodyParser.json());
 
 const JWT_SECRET = process.env.JWT_SECRET || 'change_this_secret_in_production';
 
-app.post('/api/generate-meal-plan', async (req, res) => {
-  const profile = req.body || {};
+// Middleware d'authentification
+function authenticate(req, res, next) {
+  const auth = req.headers.authorization;
+  if (!auth) return next();
+  const parts = auth.split(' ');
+  if (parts.length !== 2) return next();
+  const token = parts[1];
   try {
-    const plan = generateMockPlan(profile);
-    return res.json(plan);
-  } catch (err) {
-    console.error('Error during mock generation flow:', err);
-    return res.status(500).json({ error: 'Mock AI backend error' });
-  }
-});
+    const payload = jwt.verify(token, JWT_SECRET);
+    req.user = payload;
+  } catch (err) {}
+  return next();
+}
+app.use(authenticate);
 
-// Authentication routes...
+// Routes d'authentification
 app.post('/api/auth/register', async (req, res) => {
   const { email, password, name } = req.body || {};
   if (!email || !password) return res.status(400).json({ error: 'email and password required' });
@@ -32,15 +36,8 @@ app.post('/api/auth/register', async (req, res) => {
     const existing = await findUserByEmail(email);
     if (existing) return res.status(409).json({ error: 'User already exists' });
 
-    const profileStmt = `INSERT INTO profiles (name, data) VALUES (?, ?)`;
-    const profileData = JSON.stringify({ createdFrom: 'register' });
-    const profileResult = await new Promise((resolve, reject) => {
-      const stmt = db.prepare(profileStmt);
-      stmt.run(name || null, profileData, function (err) {
-        if (err) return reject(err);
-        resolve({ id: this.lastID });
-      });
-    });
+    // For now, skip profile creation and use null profile_id
+    const profileResult = { id: null };
 
     const pwHash = await bcrypt.hash(password, 10);
     const user = await createUser(email, pwHash, profileResult.id);
@@ -68,21 +65,19 @@ app.post('/api/auth/login', async (req, res) => {
   }
 });
 
-function authenticate(req, res, next) {
-  const auth = req.headers.authorization;
-  if (!auth) return next();
-  const parts = auth.split(' ');
-  if (parts.length !== 2) return next();
-  const token = parts[1];
+// Route pour générer un plan de repas
+app.post('/api/generate-meal-plan', async (req, res) => {
+  const profile = req.body || {};
   try {
-    const payload = jwt.verify(token, JWT_SECRET);
-    req.user = payload;
-  } catch (err) {}
-  return next();
-}
-app.use(authenticate);
+    const plan = generateMockPlan(profile);
+    return res.json(plan);
+  } catch (err) {
+    console.error('Error during mock generation flow:', err);
+    return res.status(500).json({ error: 'Mock AI backend error' });
+  }
+});
 
-// Entries endpoints...
+// Routes pour les entrées
 app.post('/api/entries', async (req, res) => {
   const entry = req.body || {};
   if (!entry.date) entry.date = new Date().toISOString().slice(0, 10);
@@ -107,6 +102,131 @@ app.get('/api/entries', async (req, res) => {
   }
 });
 
+// Routes pour les recettes
+app.get('/api/recipes', (req, res) => {
+  // Données simulées de recettes
+  const recipes = [
+    {
+      id: 1,
+      name: 'Salade de poulet grillé',
+      ingredients: ['Poitrine de poulet (150g)', 'Légumes verts variés', 'Vinaigrette légère'],
+      calories: 350,
+      protein: 35,
+      prep_time: 20,
+      difficulty: 'Facile'
+    },
+    {
+      id: 2,
+      name: 'Soupe de lentilles et légumes',
+      ingredients: ['Lentilles (100g)', 'Bouillon de légumes', 'Carottes, céleri, oignons'],
+      calories: 280,
+      protein: 18,
+      prep_time: 45,
+      difficulty: 'Moyen'
+    },
+    {
+      id: 3,
+      name: 'Saumon au four avec brocolis',
+      ingredients: ['Filet de saumon (150g)', 'Brocolis à la vapeur', 'Huile d\'olive et citron'],
+      calories: 420,
+      protein: 38,
+      prep_time: 25,
+      difficulty: 'Facile'
+    }
+  ];
+  
+  res.json(recipes);
+});
+
+app.get('/api/recipes/favorites', (req, res) => {
+  // Données simulées de recettes favorites
+  const favorites = [];
+  res.json(favorites);
+});
+
+// Routes pour les défis
+app.get('/api/challenges', (req, res) => {
+  // Données simulées de défis
+  const challenges = [
+    {
+      id: 1,
+      title: '7 jours d\'hydratation',
+      description: 'Buvez au moins 8 verres d\'eau par jour pendant 7 jours consécutifs',
+      duration: 7,
+      reward: '50 points',
+      difficulty: 'Facile',
+      category: 'Hydratation'
+    },
+    {
+      id: 2,
+      title: '30 jours d\'exercice',
+      description: 'Faites au moins 30 minutes d\'exercice modéré chaque jour pendant 30 jours',
+      duration: 30,
+      reward: '200 points',
+      difficulty: 'Moyen',
+      category: 'Exercice'
+    }
+  ];
+  
+  res.json(challenges);
+});
+
+app.get('/api/challenges/user', (req, res) => {
+  // Données simulées des défis de l'utilisateur
+  const userChallenges = [];
+  res.json(userChallenges);
+});
+
+app.post('/api/challenges/start', (req, res) => {
+  const { challengeId } = req.body;
+  // Logique pour démarrer un défi
+  res.json({ success: true, message: 'Défi démarré avec succès' });
+});
+
+app.post('/api/challenges/complete', (req, res) => {
+  const { challengeId } = req.body;
+  // Logique pour terminer un défi
+  res.json({ success: true, message: 'Défi terminé avec succès', points: 50 });
+});
+
+// Routes pour la liste de courses
+app.get('/api/shopping-list', (req, res) => {
+  // Données simulées de la liste de courses
+  const shoppingList = [
+    { id: 1, name: 'Poulet grillé', category: 'Protéines', checked: false },
+    { id: 2, name: 'Brocoli', category: 'Fruits & Légumes', checked: true }
+  ];
+  
+  res.json(shoppingList);
+});
+
+app.post('/api/shopping-list', (req, res) => {
+  const { item } = req.body;
+  // Logique pour ajouter un article à la liste de courses
+  res.json({ success: true, message: 'Article ajouté avec succès', item: { id: Date.now(), ...item } });
+});
+
+// Route pour l'assistant chef
+app.post('/api/chef-assistant', (req, res) => {
+  const { question } = req.body;
+  
+  // Réponses simulées de l'assistant chef
+  const responses = [
+    'En fonction de votre profil, je recommande de privilégier les protéines maigres comme le poulet grillé ou le poisson.',
+    'Pour une personne de votre âge, je suggère de cuisiner à la vapeur ou au four pour préserver les nutriments.',
+    'Les légumes colorés sont excellents pour votre santé. Essayez de les inclure dans chaque repas.',
+    'Pour gérer votre diabète, privilégiez les glucides complexes et combinez-les avec des protéines.',
+    'Une alimentation équilibrée inclut des aliments de chaque groupe : fruits, légumes, céréales complètes, etc.'
+  ];
+  
+  const response = responses[Math.floor(Math.random() * responses.length)];
+  res.json({ response });
+});
+
+// Route racine
+app.get('/', (req, res) => {
+  res.json({ message: 'NutriAI API Server is running', status: 'OK' });
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

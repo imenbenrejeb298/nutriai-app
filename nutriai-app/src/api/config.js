@@ -1,9 +1,19 @@
 /**
- * API Configuration for Netlify deployment.
- * The API is now served from the same domain as the frontend,
- * under the `/.netlify/functions/api` path, which is rewritten from `/api`.
+ * API / Environment Configuration
  */
 
-// When deployed on Netlify, all calls to /api/* will be redirected to our function.
-// In local development, we will use the Netlify Dev server which simulates this.
-export const API_BASE_URL = ''; // No base URL needed, requests are relative to the site itself
+export const isElectron = () => {
+  // ... isElectron function is unchanged
+};
+
+const isDevelopment = process.env.NODE_ENV === 'development';
+
+export const API_BASE_URL = isDevelopment ? 'http://localhost:9999' : '';
+
+export const API_ENDPOINTS = {
+  login: `${API_BASE_URL}/api/auth/login`,
+  register: `${API_BASE_URL}/api/auth/register`,
+  generatePlan: `${API_BASE_URL}/api/generate-meal-plan`,
+  entries: `${API_BASE_URL}/api/entries`,
+  // Add other endpoints as you build them
+};

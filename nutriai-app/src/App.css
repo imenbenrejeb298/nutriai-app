@@ -1,16 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 .App {
   font-family: 'Inter', sans-serif;
 }
 
-/* Custom styles for recharts to match the new design */
+/* Custom styles for recharts to match the dark theme */
 .recharts-legend-item-text {
-  color: #4A5568 !important; /* gray-700 */
+  color: #d4d4d4 !important; /* neutral-300 for dark theme */
+  font-weight: 500;
 }
 
 .recharts-tooltip-wrapper {
-  border: 1px solid #E2E8F0 !important; /* gray-200 */
-  border-radius: 0.75rem !important; /* rounded-lg */
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  border: 1px solid #525252 !important; /* neutral-600 */
+  border-radius: 1rem !important; /* rounded-xl */
+  box-shadow: 0 4px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2) !important;
+  background: #262626 !important; /* neutral-800 */
+}
+
+.recharts-default-tooltip {
+  background: #262626 !important; /* neutral-800 */
+  border: none !important;
+  box-shadow: 0 4px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2) !important;
+  color: white !important;
 }

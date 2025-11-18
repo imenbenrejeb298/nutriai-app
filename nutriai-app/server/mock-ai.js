@@ -85,9 +85,19 @@ function generateMockPlan(profile) {
     result.exercises.push(EXERCISES.cardio[1], EXERCISES.flexibility[0]);
   }
 
-  // Ensure we always return a consistent number of items
-  result.meals = result.meals.slice(0, 2);
-  result.exercises = result.exercises.slice(0, 2);
+  // Ensure we always return a consistent number of items (3 meals)
+  // If we have less than 3 meals, add more from different categories
+  while (result.meals.length < 3) {
+    if (result.meals.length === 0) {
+      result.meals.push(MEALS.low_sugar[0], MEALS.low_calorie[0], MEALS.low_salt[0]);
+    } else if (result.meals.length === 1) {
+      result.meals.push(MEALS.low_calorie[0], MEALS.low_salt[0]);
+    } else if (result.meals.length === 2) {
+      result.meals.push(MEALS.low_sugar[0]);
+    }
+  }
+  result.meals = result.meals.slice(0, 3);
+  result.exercises = result.exercises.slice(0, 3);
 
   return result;
 }

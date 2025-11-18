@@ -1,5 +1,20 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
+const { spawn } = require('child_process');
+
+let serverProcess;
+
+function startServer() {
+  // Start the Node.js server
+  const serverPath = path.join(__dirname, 'server', 'index.js');
+  serverProcess = spawn('node', [serverPath], {
+    cwd: __dirname,
+    stdio: 'inherit',
+    detached: false
+  });
+
+  console.log('Server started');
+}
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -22,6 +37,7 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  startServer();
   createWindow();
 
   app.on('activate', function () {
@@ -30,5 +46,8 @@ app.whenReady().then(() => {
 });
 
 app.on('window-all-closed', function () {
+  if (serverProcess) {
+    serverProcess.kill();
+  }
   if (process.platform !== 'darwin') app.quit();
 });
