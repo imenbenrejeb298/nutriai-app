@@ -15,9 +15,9 @@ const Button = ({ children, className = '', variant = 'default', ...props }) => 
   const baseClasses = 'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none';
   
   const variants = {
-    default: 'bg-emerald-500 text-white hover:bg-emerald-600',
-    outline: 'border border-gray-300 hover:bg-gray-50',
-    secondary: 'bg-gray-100 text-gray-900 hover:bg-gray-200',
+    default: 'bg-primary-600 text-white hover:bg-primary-700 shadow-medium hover:shadow-large',
+    outline: 'border-2 border-neutral-200 hover:border-primary-300 hover:bg-primary-50',
+    secondary: 'bg-neutral-100 text-neutral-900 hover:bg-neutral-200',
   };
   
   return (
@@ -28,7 +28,7 @@ const Button = ({ children, className = '', variant = 'default', ...props }) => 
 };
 
 const Card = ({ children, className = '', ...props }) => (
-  <div className={`rounded-lg border bg-white shadow-sm ${className}`} {...props}>
+  <div className={`card-professional ${className}`} {...props}>
     {children}
   </div>
 );
@@ -53,7 +53,7 @@ const CardContent = ({ children, className = '', ...props }) => (
 
 const Input = ({ className = '', ...props }) => (
   <input
-    className={`flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 ${className}`}
+    className={`input-professional ${className}`}
     {...props}
   />
 );
@@ -103,11 +103,7 @@ const Layout = ({ children }) => {
             key={item.path}
             to={item.path}
             onClick={() => mobile && setSidebarOpen(false)}
-            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-              isActive
-                ? 'bg-gradient-to-r from-emerald-500 to-sky-500 text-white shadow-lg'
-                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-            } ${mobile ? 'text-base' : ''}`}
+            className={`nav-item ${isActive ? 'nav-item-active' : ''} ${mobile ? 'text-base' : ''}`}
           >
             <Icon className="w-5 h-5" />
             {item.label}
@@ -124,10 +120,10 @@ const Layout = ({ children }) => {
         <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
           <div className="flex h-16 shrink-0 items-center">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-sky-500 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-gradient-to-r from-primary-500 to-primary-600 rounded-xl flex items-center justify-center shadow-medium">
                 <Activity className="w-5 h-5 text-white" />
               </div>
-              <h1 className="text-xl font-bold bg-gradient-to-r from-emerald-600 to-sky-600 bg-clip-text text-transparent">
+              <h1 className="text-xl font-bold bg-gradient-to-r from-primary-600 to-primary-700 bg-clip-text text-transparent">
                 NutriAI
               </h1>
             </div>
@@ -181,10 +177,10 @@ const Layout = ({ children }) => {
           <div className="fixed inset-y-0 left-0 w-72 bg-white p-6">
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-sky-500 rounded-lg flex items-center justify-center">
+                <div className="w-8 h-8 bg-gradient-to-r from-primary-500 to-primary-600 rounded-xl flex items-center justify-center shadow-medium">
                   <Activity className="w-5 h-5 text-white" />
                 </div>
-                <h1 className="text-xl font-bold bg-gradient-to-r from-emerald-600 to-sky-600 bg-clip-text text-transparent">
+                <h1 className="text-xl font-bold bg-gradient-to-r from-primary-600 to-primary-700 bg-clip-text text-transparent">
                   NutriAI
                 </h1>
               </div>
@@ -231,10 +227,10 @@ const HomePage = () => {
       <div className="min-h-screen flex items-center justify-center p-6">
         <Card className="max-w-2xl w-full glass-effect border-0 shadow-2xl">
           <CardContent className="p-12 text-center">
-            <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-emerald-500 to-sky-500 rounded-full flex items-center justify-center">
+            <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center shadow-large">
               <Sparkles className="w-10 h-10 text-white" />
             </div>
-            <h1 className="text-3xl font-bold mb-4 bg-gradient-to-r from-emerald-600 to-sky-600 bg-clip-text text-transparent">
+            <h1 className="text-3xl font-bold mb-4 bg-gradient-to-r from-primary-600 to-primary-700 bg-clip-text text-transparent">
               {t('letsStart')}
             </h1>
             <p className="text-gray-600 mb-8 text-lg">
@@ -242,7 +238,7 @@ const HomePage = () => {
             </p>
             <Button
               onClick={() => navigate('/profile')}
-              className="bg-gradient-to-r from-emerald-500 to-sky-500 hover:from-emerald-600 hover:to-sky-600 text-white px-8 py-6 text-lg rounded-xl shadow-lg"
+              className="btn-primary px-8 py-6 text-lg"
             >
               {t('completeProfile')}
               <ArrowRight className="ml-2 w-5 h-5" />
@@ -259,19 +255,19 @@ const HomePage = () => {
         <h1 className="text-4xl md:text-5xl font-bold mb-2">
           {t('welcome')}
         </h1>
-        <p className="text-gray-600 text-lg">{t('subtitle')}</p>
+            <p className="text-neutral-600 text-lg">{t('subtitle')}</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <Card className="glass-effect border-0 shadow-lg hover:shadow-xl transition-all duration-300">
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-gray-600 flex items-center gap-2">
-              <Activity className="w-4 h-4 text-emerald-500" />
+            <CardTitle className="text-sm font-medium text-neutral-600 flex items-center gap-2">
+              <Activity className="w-4 h-4 text-primary-600" />
               {t('bmi')}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">
+            <div className="text-3xl font-bold bg-gradient-to-r from-primary-600 to-primary-500 bg-clip-text text-transparent">
               {profile.bmi || "—"}
             </div>
             <p className="text-sm text-gray-500 mt-1">Poids normal</p>
@@ -280,16 +276,16 @@ const HomePage = () => {
 
         <Card className="glass-effect border-0 shadow-lg hover:shadow-xl transition-all duration-300">
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-gray-600 flex items-center gap-2">
-              <Utensils className="w-4 h-4 text-sky-500" />
+            <CardTitle className="text-sm font-medium text-neutral-600 flex items-center gap-2">
+              <Utensils className="w-4 h-4 text-accent-600" />
               {t('calories')}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold bg-gradient-to-r from-sky-600 to-sky-500 bg-clip-text text-transparent">
+            <div className="text-3xl font-bold bg-gradient-to-r from-accent-600 to-accent-500 bg-clip-text text-transparent">
               1,850
             </div>
-            <p className="text-sm text-gray-500 mt-1">{t('todayStats')}</p>
+            <p className="text-sm text-neutral-500 mt-1">{t('todayStats')}</p>
           </CardContent>
         </Card>
 
@@ -423,10 +419,10 @@ const ProfilePage = () => {
   return (
     <div className="max-w-4xl mx-auto space-y-8">
       <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-emerald-600 to-sky-600 bg-clip-text text-transparent">
+        <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary-600 to-primary-700 bg-clip-text text-transparent">
           {t('profileTitle')}
         </h1>
-        <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+        <p className="text-neutral-600 text-lg max-w-2xl mx-auto">
           {t('profileSubtitle')}
         </p>
       </div>
@@ -442,7 +438,7 @@ const ProfilePage = () => {
       <Card className="glass-effect border-0 shadow-lg">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <User className="w-5 h-5 text-emerald-500" />
+            <User className="w-5 h-5 text-primary-600" />
             Informations Personnelles
           </CardTitle>
         </CardHeader>
@@ -525,11 +521,11 @@ const ProfilePage = () => {
           </div>
 
           {formData.weight && formData.height && (
-            <div className="p-4 bg-gradient-to-r from-emerald-50 to-sky-50 rounded-lg border border-emerald-200">
+            <div className="p-4 bg-gradient-to-r from-primary-50 to-primary-100 rounded-xl border-2 border-primary-200">
               <div className="text-center">
-                <div className="text-sm text-gray-600">Votre IMC</div>
-                <div className="text-3xl font-bold text-emerald-600">{calculateBMI()}</div>
-                <div className="text-sm text-gray-500 mt-1">Poids normal</div>
+                <div className="text-sm text-neutral-600 font-medium">Votre IMC</div>
+                <div className="text-3xl font-bold text-primary-600">{calculateBMI()}</div>
+                <div className="text-sm text-neutral-500 mt-1">Poids normal</div>
               </div>
             </div>
           )}
@@ -537,7 +533,7 @@ const ProfilePage = () => {
           <Button
             onClick={handleSave}
             disabled={saving}
-            className="w-full bg-gradient-to-r from-emerald-500 to-sky-500 hover:from-emerald-600 hover:to-sky-600 text-white py-3"
+            className="w-full btn-primary"
           >
             <Save className="w-4 h-4 mr-2" />
             {saving ? 'Sauvegarde...' : t('saveProfile')}

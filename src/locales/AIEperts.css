@@ -1,0 +1,96 @@
+.ai-experts-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
+  color: #333;
+}
+
+.ai-experts-container h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.experts-subtitle {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 3rem;
+}
+
+.experts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.expert-card {
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.expert-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.expert-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.expert-avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 1rem;
+  border: 3px solid #e0e0e0;
+}
+
+.expert-info h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.expert-info p {
+  margin: 0;
+  color: #555;
+}
+
+.expert-body {
+  flex-grow: 1;
+  margin-bottom: 1.5rem;
+}
+
+.expert-chat {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.expert-chat input {
+  flex-grow: 1;
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.expert-chat button {
+  padding: 0.8rem 1.2rem;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.expert-chat button:hover {
+  background-color: #0056b3;
+}
