@@ -1,13 +1,36 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
 import './i18n';
 
+import Welcome from './components/Welcome';
+
+// A simple placeholder for the Auth Page
+function AuthPagePlaceholder() {
+  return (
+    <div style={{ padding: '50px', textAlign: 'center', color: 'white' }}>
+      <h1>Page de Connexion</h1>
+      <p>Cette page s'affichera correctement à la prochaine étape.</p>
+    </div>
+  );
+}
+
+// A wrapper for the Welcome page to handle navigation
+function WelcomeWrapper() {
+  const navigate = useNavigate();
+  return <Welcome onStart={() => navigate('/auth')} />;
+}
+
 function App() {
   return (
-    <div style={{ padding: '50px', textAlign: 'center', fontSize: '2em', color: 'white', backgroundColor: '#171717', minHeight: '100vh' }}>
-      <h1>Test de Déploiement</h1>
-      <p>Si vous voyez ce message, la base fonctionne.</p>
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<WelcomeWrapper />} />
+          <Route path="/auth" element={<AuthPagePlaceholder />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
