@@ -1,12 +1,32 @@
-# Netlify configuration for Production
+# Netlify configuration for NutriAI app
 
 [build]
+  # The command to build the React frontend
   command = "npm run build"
+  
+  # The directory where the built frontend is located
   publish = "build"
+
+  # Functions directory
   functions = "netlify/functions"
 
-# Redirect rule for the API
+# Redirects for SPA
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# API proxy redirects
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"
   status = 200
+
+# Headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer-when-downgrade"

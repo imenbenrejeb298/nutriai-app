@@ -1,9 +1,12 @@
 // src/components/api.js
-const API_BASE_URL = '/.netlify/functions/api';
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? '/.netlify/functions/api' 
+  : 'http://localhost:3001'; // Utiliser le port 3001 comme requis
 
 // Fonction générique pour faire des requêtes API
 const apiRequest = async (endpoint, options = {}) => {
   try {
+    console.log('API Request to:', `${API_BASE_URL}${endpoint}`); // Pour déboguer
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
       headers: {
         'Content-Type': 'application/json',
@@ -31,14 +34,14 @@ const apiRequest = async (endpoint, options = {}) => {
 // Authentification
 export const authAPI = {
   login: async (email, password) => {
-    return apiRequest('/auth/login', {
+    return apiRequest('/api/auth/login', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
     });
   },
   
   register: async (userData) => {
-    return apiRequest('/auth/register', {
+    return apiRequest('/api/auth/register', {
       method: 'POST',
       body: JSON.stringify(userData),
     });
@@ -48,11 +51,11 @@ export const authAPI = {
 // Profil utilisateur
 export const profileAPI = {
   getProfile: async (profileId) => {
-    return apiRequest(`/user/profile/${profileId}`);
+    return apiRequest(`/api/user/profile/${profileId}`);
   },
   
   saveProfile: async (profileId, profileData) => {
-    return apiRequest(`/user/profile/${profileId}`, {
+    return apiRequest(`/api/user/profile/${profileId}`, {
       method: 'POST',
       body: JSON.stringify(profileData),
     });
@@ -62,7 +65,7 @@ export const profileAPI = {
 // Plans de repas
 export const mealPlanAPI = {
   generatePlan: async (profile) => {
-    return apiRequest('/generate-meal-plan', {
+    return apiRequest('/api/generate-meal-plan', {
       method: 'POST',
       body: JSON.stringify({ profile }),
     });
@@ -72,13 +75,20 @@ export const mealPlanAPI = {
 // Suivi quotidien
 export const trackingAPI = {
   getEntries: async (profileId) => {
-    return apiRequest(`/entries/${profileId}`);
+    return apiRequest(`/api/entries/${profileId}`);
   },
   
   saveEntry: async (entryData) => {
-    return apiRequest('/entries', {
+    return apiRequest('/api/entries', {
       method: 'POST',
       body: JSON.stringify(entryData),
     });
   },
+};
+
+// Test API
+export const testAPI = {
+  test: async () => {
+    return apiRequest('/api/test');
+  }
 };

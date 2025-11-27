@@ -20,7 +20,7 @@ function Recipes({ profile }) {
       calories: 350,
       protein: 35,
       prep_time: 20,
-      difficulty: 'Facile'
+      difficulty: 'easy'
     },
     {
       id: 2,
@@ -33,7 +33,7 @@ function Recipes({ profile }) {
       calories: 280,
       protein: 18,
       prep_time: 45,
-      difficulty: 'Moyen'
+      difficulty: 'medium'
     },
     {
       id: 3,
@@ -46,7 +46,7 @@ function Recipes({ profile }) {
       calories: 420,
       protein: 38,
       prep_time: 25,
-      difficulty: 'Facile'
+      difficulty: 'easy'
     },
     {
       id: 4,
@@ -59,7 +59,7 @@ function Recipes({ profile }) {
       calories: 320,
       protein: 25,
       prep_time: 15,
-      difficulty: 'Facile'
+      difficulty: 'easy'
     },
     {
       id: 5,
@@ -72,7 +72,7 @@ function Recipes({ profile }) {
       calories: 380,
       protein: 15,
       prep_time: 35,
-      difficulty: 'Moyen'
+      difficulty: 'medium'
     },
     {
       id: 6,
@@ -85,7 +85,7 @@ function Recipes({ profile }) {
       calories: 410,
       protein: 12,
       prep_time: 50,
-      difficulty: 'Moyen'
+      difficulty: 'medium'
     }
   ];
 
@@ -201,10 +201,10 @@ function Recipes({ profile }) {
                 
                 <div className="mt-4 flex flex-wrap gap-2">
                   <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
-                    {recipe.calories} kcal
+                    {recipe.calories} {t('calories')}
                   </span>
                   <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                    {recipe.protein}g protéines
+                    {recipe.protein}g {t('protein')}
                   </span>
                   <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
                     {recipe.prep_time} min

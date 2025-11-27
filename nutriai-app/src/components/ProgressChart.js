@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { listEntries } from '../api/entriesClient';
 
@@ -15,7 +16,7 @@ function ProgressChart() {
     load();
   }, []);
 
-  if (!data || data.length === 0) return <div>No progress data yet.</div>;
+  if (!data || data.length === 0) return <div>{t('noDataChart')}</div>;
 
   return (
     <div style={{ width: '100%', height: 300 }}>

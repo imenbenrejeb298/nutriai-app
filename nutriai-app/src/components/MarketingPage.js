@@ -119,7 +119,7 @@ function MarketingPage() {
           <img
             className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
             src="https://images.unsplash.com/photo-1493770348161-369560ae357d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80"
-            alt="Healthy food"
+            alt={t('healthy_food_alt')}
           />
         </div>
       </div>

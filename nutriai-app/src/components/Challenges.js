@@ -14,8 +14,8 @@ function Challenges({ profile }) {
       description: t('challenge_7_days_water_desc'),
       duration: 7,
       reward: t('challenge_reward_points', { count: 50 }),
-      difficulty: 'Facile',
-      category: 'Hydratation'
+      difficulty: 'easy',
+      category: t('category_hydration')
     },
     {
       id: 2,
@@ -23,8 +23,8 @@ function Challenges({ profile }) {
       description: t('challenge_30_days_exercise_desc'),
       duration: 30,
       reward: t('challenge_reward_points', { count: 200 }),
-      difficulty: 'Moyen',
-      category: 'Exercice'
+      difficulty: 'medium',
+      category: t('category_exercise')
     },
     {
       id: 3,
@@ -32,8 +32,8 @@ function Challenges({ profile }) {
       description: t('challenge_vegetables_daily_desc'),
       duration: 14,
       reward: t('challenge_reward_points', { count: 100 }),
-      difficulty: 'Facile',
-      category: 'Nutrition'
+      difficulty: 'easy',
+      category: t('category_nutrition')
     },
     {
       id: 4,
@@ -41,8 +41,8 @@ function Challenges({ profile }) {
       description: t('challenge_sleep_8_hours_desc'),
       duration: 21,
       reward: t('challenge_reward_points', { count: 150 }),
-      difficulty: 'Moyen',
-      category: 'Sommeil'
+      difficulty: 'medium',
+      category: t('category_sleep')
     },
     {
       id: 5,
@@ -50,8 +50,8 @@ function Challenges({ profile }) {
       description: t('challenge_mindful_eating_desc'),
       duration: 10,
       reward: t('challenge_reward_points', { count: 75 }),
-      difficulty: 'Facile',
-      category: 'Habitudes'
+      difficulty: 'easy',
+      category: t('category_habits')
     }
   ];
 
@@ -72,9 +72,9 @@ function Challenges({ profile }) {
 
   const getDifficultyColor = (difficulty) => {
     switch (difficulty) {
-      case 'Facile': return 'bg-green-100 text-green-800';
-      case 'Moyen': return 'bg-yellow-100 text-yellow-800';
-      case 'Difficile': return 'bg-red-100 text-red-800';
+      case 'easy': return 'bg-green-100 text-green-800';
+      case 'medium': return 'bg-yellow-100 text-yellow-800';
+      case 'hard': return 'bg-red-100 text-red-800';
       default: return 'bg-gray-100 text-gray-800';
     }
   };
